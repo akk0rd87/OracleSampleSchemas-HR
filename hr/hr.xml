@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+                                    
+    <include file="hr/user/user.xml"/>
+    <include file="hr/schema/schema.xml"/>
+    <include file="hr/schema/comments.xml"/>
+    <include file="hr/schema/sequences.xml"/>
+    <include file="hr/procedures/procedures.xml"/>
+    <include file="hr/views/views.xml"/>
+    <include file="hr/triggers/triggers.xml"/>
+    <include file="hr/data/data.xml"/>
+    <include file="hr/schema/fk_constraints.xml"/>
+    
+</databaseChangeLog>

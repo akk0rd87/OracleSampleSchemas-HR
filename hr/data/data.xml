@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="akk0rd87" id="data:regions" context="all">
+    <sqlFile path="hr\data\regions.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:countries" context="all">
+    <sqlFile path="hr\data\countries.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:locations" context="all">
+    <sqlFile path="hr\data\locations.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:jobs" context="all">
+    <sqlFile path="hr\data\jobs.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:job_history" context="all">
+    <sqlFile path="hr\data\job_history.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:departments" context="all">
+    <sqlFile path="hr\data\departments.sql" splitStatements="true"/>
+</changeSet>
+
+<changeSet author="akk0rd87" id="data:employees" context="all">
+    <sqlFile path="hr\data\employees.sql" splitStatements="true"/>
+</changeSet>
+
+</databaseChangeLog>

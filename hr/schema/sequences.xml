@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                                
+    <changeSet author="akk0rd87" id="create sequence departments_seq" context="all">          
+        <sql>
+create sequence departments_seq
+  start with 280
+  increment by 10
+  nocycle
+  nocache
+  noorder;
+        </sql>        
+    </changeSet>     
+
+    <changeSet author="akk0rd87" id="create sequence employees_seq" context="all">          
+        <sql>
+create sequence employees_seq
+  start with 207
+  nocycle
+  nocache
+  noorder;
+        </sql>        
+    </changeSet>     
+
+    <changeSet author="akk0rd87" id="create sequence locations_seq" context="all">          
+        <sql>
+create sequence locations_seq
+  start with 3300
+  increment by 100  
+  nocycle
+  nocache
+  noorder;
+        </sql>        
+    </changeSet>      
+    
+</databaseChangeLog>

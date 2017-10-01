@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                                 
+    <changeSet author="akk0rd87" id="create table countries" context="all">          
+        <sql>
+create table countries
+(
+  country_id    char(2 byte) constraint country_id_nn not null,
+  country_name  varchar2(40 byte),
+  region_id     number, 
+  constraint country_c_id_pk
+  primary key
+  (country_id)
+)
+organization index;
+        </sql>        
+    </changeSet>     
+
+    <changeSet author="akk0rd87" id="create table departments" context="all">          
+        <sql>
+create table departments
+(
+  department_id    number(4),
+  department_name  varchar2(30 byte) constraint dept_name_nn not null,
+  manager_id       number(6),
+  location_id      number(4)
+);
+        </sql>        
+    </changeSet>     
+
+    <changeSet author="akk0rd87" id="create table employees" context="all">          
+        <sql>
+create table employees
+(
+  employee_id     number(6),
+  first_name      varchar2(20 byte),
+  last_name       varchar2(25 byte) constraint emp_last_name_nn not null,
+  email           varchar2(25 byte) constraint emp_email_nn not null,
+  phone_number    varchar2(20 byte),
+  hire_date       date constraint emp_hire_date_nn not null,
+  job_id          varchar2(10 byte) constraint emp_job_nn not null,
+  salary          number(8,2),
+  commission_pct  number(2,2),
+  manager_id      number(6),
+  department_id   number(4)
+);
+        </sql>        
+    </changeSet>     
+
+    <changeSet author="akk0rd87" id="create table job_history" context="all">          
+        <sql>
+create table job_history
+(
+  employee_id    number(6) constraint jhist_employee_nn not null,
+  start_date     date constraint jhist_start_date_nn not null,
+  end_date       date constraint jhist_end_date_nn not null,
+  job_id         varchar2(10 byte) constraint jhist_job_nn not null,
+  department_id  number(4)
+);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create table jobs" context="all">          
+        <sql>
+create table jobs
+(
+  job_id      varchar2(10 byte),
+  job_title   varchar2(35 byte) constraint job_title_nn not null,
+  min_salary  number(6),
+  max_salary  number(6)
+);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create table locations" context="all">          
+        <sql>
+create table locations
+(
+  location_id     number(4),
+  street_address  varchar2(40 byte),
+  postal_code     varchar2(12 byte),
+  city            varchar2(30 byte) constraint loc_city_nn not null,
+  state_province  varchar2(25 byte),
+  country_id      char(2 byte)
+);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create table regions" context="all">          
+        <sql>
+create table regions
+(
+  region_id    number constraint region_id_nn   not null,
+  region_name  varchar2(25 byte)
+);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index dept_id_pk" context="all">          
+        <sql>
+create unique index dept_id_pk on departments
+(department_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index dept_location_ix" context="all">          
+        <sql>
+create index dept_location_ix on departments
+(location_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="constraint dept_id_pk" context="all">          
+        <sql>
+alter table departments add (
+  constraint dept_id_pk
+  primary key
+  (department_id)
+  using index dept_id_pk);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index emp_department_ix" context="all">          
+        <sql>
+create index emp_department_ix on employees
+(department_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index emp_email_uk" context="all">          
+        <sql>
+create unique index emp_email_uk on employees
+(email);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index emp_emp_id_pk" context="all">          
+        <sql>
+create unique index emp_emp_id_pk on employees
+(employee_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index emp_job_ix" context="all">          
+        <sql>
+create index emp_job_ix on employees
+(job_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index emp_manager_ix" context="all">          
+        <sql>
+create index emp_manager_ix on employees
+(manager_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index emp_name_ix" context="all">          
+        <sql>
+create index emp_name_ix on employees
+(last_name, first_name);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="alter table employees add" context="all">          
+        <sql>
+alter table employees add (
+  constraint emp_salary_min
+  check (salary > 0),
+  constraint emp_emp_id_pk
+  primary key
+  (employee_id)
+  using index emp_emp_id_pk,
+  constraint emp_email_uk
+  unique (email)
+  using index emp_email_uk);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index jhist_department_ix" context="all">          
+        <sql>
+create index jhist_department_ix on job_history
+(department_id);
+        </sql>        
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index jhist_emp_id_st_date_pk" context="all">          
+        <sql>
+create unique index jhist_emp_id_st_date_pk on job_history
+(employee_id, start_date);
+        </sql>   
+    </changeSet>         
+
+    <changeSet author="akk0rd87" id="create index jhist_employee_ix" context="all">          
+        <sql>
+create index jhist_employee_ix on job_history
+(employee_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index jhist_job_ix" context="all">          
+        <sql>
+create index jhist_job_ix on job_history
+(job_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="constraint jhist_date_interval, jhist_emp_id_st_date_pk" context="all">          
+        <sql>
+alter table job_history add (
+  constraint jhist_date_interval
+  check (end_date > start_date),
+  constraint jhist_emp_id_st_date_pk
+  primary key
+  (employee_id, start_date)
+  using index jhist_emp_id_st_date_pk);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index job_id_pk" context="all">          
+        <sql>
+create unique index job_id_pk on jobs
+(job_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="constraint job_id_pk" context="all">          
+        <sql>
+alter table jobs add (
+  constraint job_id_pk
+  primary key
+  (job_id)
+  using index job_id_pk);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index loc_city_ix" context="all">          
+        <sql>
+create index loc_city_ix on locations
+(city);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index loc_country_ix" context="all">          
+        <sql>
+create index loc_country_ix on locations
+(country_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index loc_id_pk" context="all">          
+        <sql>
+create unique index loc_id_pk on locations
+(location_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create index loc_state_province_ix" context="all">          
+        <sql>
+create index loc_state_province_ix on locations
+(state_province);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="constraint loc_id_pk" context="all">          
+        <sql>
+alter table locations add (
+  constraint loc_id_pk
+  primary key
+  (location_id)
+  using index loc_id_pk);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="create unique index reg_id_pk" context="all">          
+        <sql>
+create unique index reg_id_pk on regions
+(region_id);
+        </sql>         
+    </changeSet> 
+
+    <changeSet author="akk0rd87" id="constraint reg_id_pk" context="all">          
+        <sql>
+alter table regions add (
+  constraint reg_id_pk
+  primary key
+  (region_id)
+  using index reg_id_pk);
+        </sql>         
+    </changeSet> 
+    
+
+</databaseChangeLog>

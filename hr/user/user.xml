@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+                                    
+<changeSet author="akk0rd87" id="create_hr_user" context="all">          
+    <sql>
+create user hr identified by "12345" default tablespace users quota 50m on users account lock;
+    </sql>        
+</changeSet>     
+
+<changeSet author="akk0rd87" id="set current_schema=hr" context="all" runAlways="true" runOnChange="true">          
+    <sql>
+alter session set current_schema = "HR";
+    </sql>        
+</changeSet>     
+
+</databaseChangeLog>

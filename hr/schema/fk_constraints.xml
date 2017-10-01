@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                                       
+    <changeSet author="akk0rd87" id="constraint countr_reg_fk" context="all">          
+        <sql>    
+alter table countries add (
+  constraint countr_reg_fk 
+  foreign key (region_id) 
+  references regions (region_id));
+        </sql>         
+    </changeSet> 
+    
+    <changeSet author="akk0rd87" id="constraint dept_loc_fk, dept_mgr_fk" context="all">          
+        <sql>       
+alter table departments add (
+  constraint dept_loc_fk 
+  foreign key (location_id) 
+  references locations (location_id),
+  constraint dept_mgr_fk 
+  foreign key (manager_id) 
+  references employees (employee_id));
+        </sql>         
+    </changeSet> 
+    
+    <changeSet author="akk0rd87" id="constraint emp_dept_fk, emp_job_fk, emp_manager_fk" context="all">          
+        <sql>       
+alter table employees add (
+  constraint emp_dept_fk 
+  foreign key (department_id) 
+  references departments (department_id),
+  constraint emp_job_fk 
+  foreign key (job_id) 
+  references jobs (job_id),
+  constraint emp_manager_fk 
+  foreign key (manager_id) 
+  references employees (employee_id));
+        </sql>         
+    </changeSet> 
+    
+    <changeSet author="akk0rd87" id="constraint jhist_dept_fk, jhist_emp_fk, jhist_job_fk" context="all">          
+        <sql>    
+  alter table job_history add (
+  constraint jhist_dept_fk 
+  foreign key (department_id) 
+  references departments (department_id),
+  constraint jhist_emp_fk 
+  foreign key (employee_id) 
+  references employees (employee_id),
+  constraint jhist_job_fk 
+  foreign key (job_id) 
+  references jobs (job_id));
+        </sql>         
+    </changeSet> 
+    
+    <changeSet author="akk0rd87" id="constraint, loc_c_id_fk" context="all">          
+        <sql>      
+alter table locations add (
+  constraint loc_c_id_fk 
+  foreign key (country_id) 
+  references countries (country_id));  
+        </sql>         
+    </changeSet>   
+
+</databaseChangeLog>    
