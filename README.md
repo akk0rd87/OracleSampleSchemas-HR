@@ -1,7 +1,7 @@
 # Oracle Database Sample Schemas: HR
 
 ## What is the liquibase?
-[liquibase.org]|www.liquibase.org
+http://liquibase.org
 
 ## How should I install schema?
 You should specify database params, login/password of dba user in the update.bat file and run it. Starting process will create HR user, schema objects and will insert table data.
